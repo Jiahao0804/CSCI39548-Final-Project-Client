@@ -1,7 +1,15 @@
+CSCI39548 Final Project – Full-Stack CRUD Application
+<br>
+
+Assignment Link: https://drive.google.com/file/d/1MXZYnXZ3g6ath3aVINZWHjdKfyU5yONO/view
+<br>
+
 Github username: Jiahao0804
 <br>
 
 Github repository Link: https://github.com/Jiahao0804/CSCI39548-Final-Project-Client
+<br>
+
 
 # client-starter-code
 
