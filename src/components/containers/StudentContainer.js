@@ -11,6 +11,12 @@ import { connect } from "react-redux";
 import { fetchStudentThunk } from "../../store/thunks";
 import { StudentView } from "../views";
 
+import
+{
+  fetchStudentThunk,
+  addStudentThunk,
+  deleteStudentThunk,
+}
 class StudentContainer extends Component {
   // Get student data from back-end database
   componentDidMount() {
@@ -23,7 +29,7 @@ class StudentContainer extends Component {
     return (
       <div>
         <Header />
-        <StudentView student={this.props.student} />
+        <StudentView student={this.props.student} addStudent={this.props.addStudent} deleteStudent={this.props.deleteStudent}/>
       </div>
     );
   }
@@ -41,6 +47,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchStudent: (id) => dispatch(fetchStudentThunk(id)),
+    addStudent: (student) => dispatch(addStudentThunk(student)),
+    deleteStudent: (studentId) => dispatch(deleteStudentThunk(studentId)),
   };
 };
 

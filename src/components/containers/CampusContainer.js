@@ -12,11 +12,22 @@ import { fetchCampusThunk } from "../../store/thunks";
 
 import { CampusView } from "../views";
 
+
+import 
+{
+  fetchCampusThunk,
+  addCampusThunk,
+  deleteCampusThunk,
+  fetchAllStudentsThunk,
+  editStudentThunks,
+}
+
 class CampusContainer extends Component {
   // Get the specific campus data from back-end database
   componentDidMount() {
     // Get campus ID from URL (API link)
     this.props.fetchCampus(this.props.match.params.id);
+    this.props.fetchAllStudents();
   }
 
   // Render a Campus view by passing campus data as props to the corresponding View component
@@ -24,7 +35,12 @@ class CampusContainer extends Component {
     return (
       <div>
         <Header />
-        <CampusView campus={this.props.campus} />
+        <CampusView campus={this.props.campus} 
+        addCampus={this.props.addCampus}
+        deleteCampus={this.props.deleteCampus} 
+        fetchAllStudents={this.props.fetchAllStudents} 
+        editStudent={this.props.editStudent}
+        allStudents={this.props.allStudents}/>
       </div>
     );
   }
@@ -36,6 +52,7 @@ class CampusContainer extends Component {
 const mapState = (state) => {
   return {
     campus: state.campus,  // Get the State object from Reducer "campus"
+    allStudents: state.allStudents,
   };
 };
 // 2. The "mapDispatch" argument is used to dispatch Action (Redux Thunk) to Redux Store.
@@ -43,6 +60,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
+    addCampus: (campus) => dispatch(addCampusThunk(campus)),
+    deleteCampus: (campusId) => dispatch(deleteCampusThunk(campusId)),
+    fetchAllStudents: () => dispatch(fetchAllStudentsThunk()),
+    editStudent: (student) => dispatch(editStudentThunks(student)),
   };
 };
 
