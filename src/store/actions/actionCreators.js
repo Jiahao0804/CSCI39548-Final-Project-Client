@@ -14,7 +14,7 @@ export const fetchAllCampuses = (campuses) => {
 };
 
 // ADD_CAMPUS
-export const addCampus = (campuses) => {
+export const addCampus = (campus) => {
   return {
     type: at.ADD_CAMPUS,
     payload: campus,
@@ -22,15 +22,15 @@ export const addCampus = (campuses) => {
 };
 
 // DELETE_CAMPUS
-export const deleteCampus = (campuses) => {
+export const deleteCampus = (campusId) => {
   return {
     type: at.DELETE_CAMPUS,
-    payload: campus,
+    payload: campusId,
   };
 };
 
 // EDIT_CAMPUS
-export const editCampus = (campuses) => {
+export const editCampus = (campus) => {
   return {
     type: at.EDIT_CAMPUS,
     payload: campus,
