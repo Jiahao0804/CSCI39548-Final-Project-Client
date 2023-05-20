@@ -10,6 +10,7 @@ Github username: Jiahao0804
 Github repository Link: https://github.com/Jiahao0804/CSCI39548-Final-Project-Client
 <br>
 
+haven't finish yet..
 
 # client-starter-code
 
