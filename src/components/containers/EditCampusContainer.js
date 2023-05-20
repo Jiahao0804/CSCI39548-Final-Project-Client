@@ -1,5 +1,5 @@
 /*==================================================
-NewCampusContainer.js
+EditCampusContainer.js
 
 The Container component is responsible for stateful logic and data fetching, and
 passes data (if any) as props to the corresponding View component.
@@ -11,9 +11,10 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import NewCampusView from '../views/NewCampusView';
-import { addCampusThunk } from '../../store/thunks';
+import { addCampusThunk, editCampusThunk } from '../../store/thunks';
+import { editCampus } from '../../store/actions/actionCreators';
 
-class NewCampusContainer extends Component {
+class EditCampusContainer extends Component {
   // Initialize state
   constructor(props){
     super(props);
@@ -35,7 +36,7 @@ class NewCampusContainer extends Component {
   }
 
   // Take action after user click the submit button
-  handleSubmit = async event => {
+  handleSubmit = async (event, input) => {
     event.preventDefault();  // Prevent browser reload/refresh after submit.
 
     let campus = {
@@ -45,8 +46,13 @@ class NewCampusContainer extends Component {
         imageURL: this.state.imageURL.
     };
     
+    (campus.name === '' ? campus.name = input.name);
+    (campus.address === '' ? campus.address = input.address);
+    (campus.description === '' ? campus.description = input.description);
+    (campus.imageURL === '' ? campus.imageURL = input.imageURL);
+
     // Add new campus in back-end database
-    let newCampus = await this.props.addCampus(campus);
+    await this.props.editCampus(campus);
 
     // Update state, and trigger redirect to show the new student
     this.setState({
@@ -54,8 +60,8 @@ class NewCampusContainer extends Component {
         address: "",
         description: "",
         imageURL: "",
-        redirect: false, 
-        redirectId: null
+        redirect: true, 
+        redirectId: campus.id
     });
   }
 
@@ -75,9 +81,10 @@ class NewCampusContainer extends Component {
     return (
       <div>
         <Header />
-        <NewCampusView 
-          handleChange = {this.handleChange} 
-          handleSubmit={this.handleSubmit}      
+        <EditCampusView 
+          campus = { this.props.campus }
+          handleChange = {this.handleChange } 
+          handleSubmit= { this.handleSubmit }      
         />
       </div>          
     );
@@ -89,11 +96,11 @@ class NewCampusContainer extends Component {
 // The "mapDispatch" calls the specific Thunk to dispatch its action. The "dispatch" is a function of Redux Store.
 const mapDispatch = (dispatch) => {
     return({
-        addCampus: (campus) => dispatch(addCampusThunk(campus)),
+        editCampus: (campus) => dispatch(editCampusThunk(campus)),
     })
 }
 
 // Export store-connected container by default
 // NewCampusContainer uses "connect" function to connect to Redux Store and to read values from the Store 
 // (and re-read the values when the Store State updates).
-export default connect(null, mapDispatch)(NewCampusContainer);
+export default connect(null, mapDispatch)(EditCampusContainer);
